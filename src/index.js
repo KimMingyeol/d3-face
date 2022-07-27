@@ -135,6 +135,10 @@ function drawLeftEye() {
     drawEye(posX, posY);
     ctx.restore();
 
+    /* drawing eyebrows*/
+    ctx.fillStyle = "black";
+    ctx.fillRect(posX - eyebrow_width/2, posY - hT - heightT/2, eyebrow_width, heightT); // Top eyebrow
+    ctx.fillRect(posX - eyebrow_width/2, posY + hB - heightB/2, eyebrow_width, heightB); // Bottom eyebrow
     drawLeftEyebrows();
 }
 
@@ -157,6 +161,10 @@ function drawRightEye() {
     drawEye(posX, posY);
     ctx.restore();
 
+    /* drawing eyebrows*/
+    ctx.fillStyle = "black";
+    ctx.fillRect(posX - eyebrow_width/2, posY - hT - heightT/2, eyebrow_width, heightT); // Top eyebrow
+    ctx.fillRect(posX - eyebrow_width/2, posY + hB - heightB/2, eyebrow_width, heightB); // Bottom eyebrow
     drawRightEyebrows();
 }
 
