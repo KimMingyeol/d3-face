@@ -59,8 +59,7 @@ function drawFace() {
     ctx.fill();
 }
 
-function drawEye(posX, posY) {
-    ctx.beginPath();
+function drawEye(posX, posY) {ctx.beginPath();
     ctx.ellipse(posX, posY, 15 * ratio, 35 * ratio, 0, 0, Math.PI * 2);
     ctx.fillStyle = '#000';
     ctx.fill();
@@ -75,9 +74,14 @@ function drawEyeLight(posX, posY) {
 }
 
 function drawLips() {
+    let offLT = [0, 0]; // [offsetX, offsetY]
+    let offLB = [0, 0];
+    let offRB = [0, 0];
+    let offRT = [0, 0];
+
     ctx.beginPath();
-    ctx.moveTo(300 * ratio, 430 * ratio);
-    ctx.bezierCurveTo(320 * ratio, 500 * ratio, 480 * ratio, 500 * ratio, 500 * ratio, 430 * ratio);
+    ctx.moveTo((300 + offLT[0]) * ratio, (430 + offLT[1]) * ratio);
+    ctx.bezierCurveTo((320 + offLB[0]) * ratio, (500 + offLB[1]) * ratio, (480 + offRB[0]) * ratio, (500 + offRB[1]) * ratio, (500 + offRT[0]) * ratio, (430 + offRT[1]) * ratio);
     ctx.save();
     ctx.lineWidth = 6 * ratio;
     ctx.stroke();
