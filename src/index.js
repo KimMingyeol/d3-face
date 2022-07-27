@@ -19,19 +19,13 @@ LTx.innerHTML = slider_LTx.value;
 LTy.innerHTML = slider_LTy.value;
 // console.log(parseFloat(LTx.innerHTML));
 
-let slider_LBx = document.getElementById("slider_LBx");
-let slider_LBy = document.getElementById("slider_LBy");
-let LBx = document.getElementById("LBx");
-let LBy = document.getElementById("LBy");
-LBx.innerHTML = slider_LBx.value;
-LBy.innerHTML = slider_LBy.value;
+let slider_LBdeg = document.getElementById("slider_LBdeg");
+let LBdeg = document.getElementById("LBdeg");
+LBdeg.innerHTML = slider_LBdeg.value;
 
-let slider_RBx = document.getElementById("slider_RBx");
-let slider_RBy = document.getElementById("slider_RBy");
-let RBx = document.getElementById("RBx");
-let RBy = document.getElementById("RBy");
-RBx.innerHTML = slider_RBx.value;
-RBy.innerHTML = slider_RBy.value;
+let slider_RBdeg = document.getElementById("slider_RBdeg");
+let RBdeg = document.getElementById("RBdeg");
+RBdeg.innerHTML = slider_RBdeg.value;
 
 let slider_RTx = document.getElementById("slider_RTx");
 let slider_RTy = document.getElementById("slider_RTy");
@@ -51,11 +45,9 @@ DR.innerHTML = slider_DR.value;
 slider_LTx.oninput = function() {LTx.innerHTML = this.value;}
 slider_LTy.oninput = function() {LTy.innerHTML = this.value;}
 
-slider_LBx.oninput = function() {LBx.innerHTML = this.value;}
-slider_LBy.oninput = function() {LBy.innerHTML = this.value;}
+slider_LBdeg.oninput = function() {LBdeg.innerHTML = this.value;}
 
-slider_RBx.oninput = function() {RBx.innerHTML = this.value;}
-slider_RBy.oninput = function() {RBy.innerHTML = this.value;}
+slider_RBdeg.oninput = function() {RBdeg.innerHTML = this.value;}
 
 slider_RTx.oninput = function() {RTx.innerHTML = this.value;}
 slider_RTy.oninput = function() {RTy.innerHTML = this.value;}
@@ -133,52 +125,41 @@ function drawEyeLight(posX, posY) {
 
 function drawLips() {
     // additional conditions may be further needed (left < right)
+    let thetaLB = parseFloat(LBdeg.innerHTML) * Math.PI/180;
+    let thetaRB = parseFloat(RBdeg.innerHTML) * Math.PI/180;
+    let k = 0.2;
+
     let offLT = [parseFloat(LTx.innerHTML), parseFloat(LTy.innerHTML)]; // [offsetX, offsetY]
-    let offLB = [parseFloat(LBx.innerHTML), parseFloat(LBy.innerHTML)];
-    let offRB = [parseFloat(RBx.innerHTML), parseFloat(RBy.innerHTML)];
     let offRT = [parseFloat(RTx.innerHTML), parseFloat(RTy.innerHTML)];
 
     let LT_x_coord = (300 + offLT[0]) * ratio;
-    let LT_y_coord = (430 + offLT[1]) * ratio;
-    let LB_x_coord = (320 + offLB[0]) * ratio > LT_x_coord ? (320 + offLB[0]) * ratio : LT_x_coord;
-    let LB_y_coord = (450 + offLB[1]) * ratio;
+    let LT_y_coord = (460 + offLT[1]) * ratio;
+    let LB_x_coord = LT_x_coord + maxDL*(1-(1-k)*Math.cos(thetaLB)) * Math.cos(thetaLB) * ratio;
+    let LB_y_coord = LT_y_coord + maxDL*(1-(1-k)*Math.cos(thetaLB)) * Math.sin(thetaLB) * ratio;
     let RT_x_coord = (500 + offRT[0]) * ratio;
-    let RT_y_coord = (430 + offRT[1]) * ratio;
-    let RB_x_coord = (480 + offRB[0]) * ratio < RT_x_coord ? (480 + offRB[0]) * ratio : RT_x_coord;
-    let RB_y_coord = (450 + offRB[1]) * ratio;
+    let RT_y_coord = (460 + offRT[1]) * ratio;
+    let RB_x_coord = RT_x_coord - maxDR*(1-(1-k)*Math.cos(thetaRB)) * Math.cos(thetaRB) * ratio;
+    let RB_y_coord = RT_y_coord + maxDR*(1-(1-k)*Math.cos(thetaRB)) * Math.sin(thetaRB) * ratio;
 
     ctx.beginPath();
     ctx.moveTo(LT_x_coord, LT_y_coord);
     ctx.bezierCurveTo(LB_x_coord, LB_y_coord, RB_x_coord, RB_y_coord, RT_x_coord, RT_y_coord);
     
-    /* downside lips; positive value <= 100 */
-    let lenL = Math.sqrt(Math.pow(LB_x_coord - LT_x_coord, 2) + Math.pow(LB_y_coord - LT_y_coord, 2));
-    let lenR = Math.sqrt(Math.pow(RB_x_coord - RT_x_coord, 2) + Math.pow(RB_y_coord - RT_y_coord, 2));
-    
-    let downL = parseFloat(DL.innerHTML); // [0, maxDL]
-    let downR = parseFloat(DR.innerHTML); // [0, maxDR]
+    /* bottom lip; simpler implementation; 2nd version */
+    let thetaLB_delta = Math.PI/2 - thetaLB;
+    let thetaRB_delta = Math.PI/2 - thetaRB;
 
-    let thetaL0 = LB_y_coord === LT_y_coord ? Math.PI/2 : Math.atan((LB_x_coord - LT_x_coord)/(LB_y_coord - LT_y_coord)); // machine error may be further handled
-    let thetaL = thetaL0 < 0 ? Math.PI + thetaL0 : (thetaL0 === 0 && LB_y_coord < LT_y_coord ? Math.PI : thetaL0);
-    let Lsin = Math.sin(downL * Math.PI/(2 * maxDL));
-    let Lcos = Math.cos(downL * Math.PI/(2 * maxDL));
-    let dthetaL = thetaL * Lsin;
+    let dthetaLB = thetaLB_delta * parseFloat(DL.innerHTML) / 100;
+    let dthetaRB = thetaRB_delta * parseFloat(DR.innerHTML) / 100;
 
-    let thetaR0 = RB_y_coord === RT_y_coord ? Math.PI/2 : Math.atan((RT_x_coord - RB_x_coord)/(RB_y_coord - RT_y_coord)); // machine error may be further handled
-    let thetaR = thetaR0 < 0 ? Math.PI + thetaR0 : (thetaR0 === 0 && RB_y_coord < RT_y_coord ? Math.PI : thetaR0);
-    let Rsin = Math.sin(downR * Math.PI/(2 * maxDR));
-    let Rcos = Math.cos(downR * Math.PI/(2 * maxDR));
-    let dthetaR = thetaR * Rsin;
-
+    let DLB_x_coord = LT_x_coord + maxDL*(1-(1-k)*Math.cos(thetaLB + dthetaLB)) * Math.cos(thetaLB + dthetaLB) * ratio;
+    let DLB_y_coord = LT_y_coord + maxDL*(1-(1-k)*Math.cos(thetaLB + dthetaLB)) * Math.sin(thetaLB + dthetaLB) * ratio;
+    let DRB_x_coord = RT_x_coord - maxDR*(1-(1-k)*Math.cos(thetaRB + dthetaRB)) * Math.cos(thetaRB + dthetaRB) * ratio;
+    let DRB_y_coord = RT_y_coord + maxDR*(1-(1-k)*Math.cos(thetaRB + dthetaRB)) * Math.sin(thetaRB + dthetaRB) * ratio;
 
     ctx.moveTo(LT_x_coord, LT_y_coord);
-    ctx.bezierCurveTo(LT_x_coord + ((lenL + downL)*Lcos + maxDL*Lsin) * Math.sin(thetaL - dthetaL), LT_y_coord + ((lenL + downL)*Lcos + maxDL*Lsin) * Math.cos(thetaL - dthetaL), RT_x_coord - ((lenR + downR)*Rcos + maxDR*Rsin) * Math.sin(thetaR - dthetaR), RT_y_coord + ((lenR + downR)*Rcos + maxDR*Rsin) * Math.cos(thetaR - dthetaR), RT_x_coord, RT_y_coord);
-    
-    // console.log(thetaL0);
-    /* downside lips */
-
-    // ctx.moveTo(300 * ratio, 430 * ratio);
-    // ctx.bezierCurveTo(320 * ratio, 430 * ratio, 480 * ratio, 430 * ratio, 500 * ratio, 430 * ratio);
+    ctx.bezierCurveTo(DLB_x_coord, DLB_y_coord, DRB_x_coord, DRB_y_coord, RT_x_coord, RT_y_coord);
+    /* bottom lip */
     
     ctx.save();
     ctx.lineWidth = 6 * ratio;
