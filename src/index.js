@@ -88,15 +88,32 @@ const maxDR = 100;
 setInterval(frame, 1000 / 20)
 
 function frame() {
-  drawBackground();
-  drawFace();
-  drawEye(340 * ratio, 375 * ratio);
-  drawEye(460 * ratio, 375 * ratio);
-  drawLips();
+    drawBackground();
+    drawFace();
+    drawLeftEye();
+    drawRightEye();
+    drawLips();
 //   drawPie(state.colors.length)
 //   rotateSquareAndDrawSquare()
 }
 
+function drawLeftEye() {
+    let regionLeft = new Path2D();
+    ctx.save();
+    regionLeft.rect(320 * ratio, 360 * ratio, 50 * ratio, 200 * ratio);
+    ctx.clip(regionLeft);
+    drawEye(340 * ratio, 375 * ratio);
+    ctx.restore();
+}
+
+function drawRightEye() {
+    let regionRight = new Path2D();
+    ctx.save();
+    regionRight.rect(440 * ratio, 350 * ratio, 50 * ratio, 50 * ratio);
+    ctx.clip(regionRight);
+    drawEye(460 * ratio, 375 * ratio);
+    ctx.restore();
+}
 
 function drawBackground() {
     ctx.fillStyle = '#000'
@@ -115,7 +132,7 @@ function drawFace() {
 
 function drawEye(posX, posY) {
     ctx.beginPath();
-    ctx.ellipse(posX, posY, 15 * ratio, 35 * ratio, 0, 0, Math.PI * 2);
+    ctx.ellipse(posX, posY, 15 * ratio, 35 * ratio, 0, 0, 2 * Math.PI);
     ctx.fillStyle = '#000';
     ctx.fill();
     drawEyeLight(posX + 5 * ratio, posY - 19 * ratio);
