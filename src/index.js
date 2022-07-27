@@ -14,14 +14,13 @@ gum_grd.addColorStop(0.35, '#ff85b1');
 
 document.body.appendChild(cnv)
 
-/* slider to test lips' changes */
+/* sliders to test lips' changes */
 let slider_LTx = document.getElementById("slider_LTx");
 let slider_LTy = document.getElementById("slider_LTy");
 let LTx = document.getElementById("LTx");
 let LTy = document.getElementById("LTy");
 LTx.innerHTML = slider_LTx.value;
 LTy.innerHTML = slider_LTy.value;
-// console.log(parseFloat(LTx.innerHTML));
 
 let slider_LBdeg = document.getElementById("slider_LBdeg");
 let LBdeg = document.getElementById("LBdeg");
@@ -58,7 +57,28 @@ slider_RTy.oninput = function() {RTy.innerHTML = this.value;}
 
 slider_DL.oninput = function() {DL.innerHTML = this.value;}
 slider_DR.oninput = function() {DR.innerHTML = this.value;}
+/* */
 
+/* sliders to test eyebrows' changes */
+let slider_LTBrow = document.getElementById("slider_LTBrow");
+let slider_LBBrow = document.getElementById("slider_LBBrow");
+let LTBrow = document.getElementById("LTBrow");
+let LBBrow = document.getElementById("LBBrow");
+LTBrow.innerHTML = slider_LTBrow.value;
+LBBrow.innerHTML = slider_LBBrow.value;
+
+let slider_RTBrow = document.getElementById("slider_RTBrow");
+let slider_RBBrow = document.getElementById("slider_RBBrow");
+let RTBrow = document.getElementById("RTBrow");
+let RBBrow = document.getElementById("RBBrow");
+RTBrow.innerHTML = slider_RTBrow.value;
+RBBrow.innerHTML = slider_RBBrow.value;
+
+slider_LTBrow.oninput = function() {LTBrow.innerHTML = this.value;}
+slider_LBBrow.oninput = function() {LBBrow.innerHTML = this.value;}
+
+slider_RTBrow.oninput = function() {RTBrow.innerHTML = this.value;}
+slider_RBBrow.oninput = function() {RBBrow.innerHTML = this.value;}
 /* */
 
 const maxDL = 100;
@@ -85,7 +105,7 @@ const maxDR = 100;
 // }
 
 
-setInterval(frame, 1000 / 20)
+setInterval(frame, 1000/20)
 
 function frame() {
     drawBackground();
@@ -98,20 +118,24 @@ function frame() {
 }
 
 function drawLeftEye() {
+    let posX = 340 * ratio;
+    let posY = 375 * ratio;
     let regionLeft = new Path2D();
     ctx.save();
-    regionLeft.rect(320 * ratio, 360 * ratio, 50 * ratio, 200 * ratio);
+    regionLeft.rect(posX - 20*ratio, 360*ratio, 50*ratio, 200*ratio);
     ctx.clip(regionLeft);
-    drawEye(340 * ratio, 375 * ratio);
+    drawEye(posX, posY);
     ctx.restore();
 }
 
 function drawRightEye() {
+    let posX = 460 * ratio;
+    let posY = 375 * ratio;
     let regionRight = new Path2D();
     ctx.save();
-    regionRight.rect(440 * ratio, 350 * ratio, 50 * ratio, 50 * ratio);
+    regionRight.rect(posX - 20*ratio, 350*ratio, 50*ratio, 50*ratio);
     ctx.clip(regionRight);
-    drawEye(460 * ratio, 375 * ratio);
+    drawEye(posX, posY);
     ctx.restore();
 }
 

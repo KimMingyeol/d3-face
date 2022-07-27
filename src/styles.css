@@ -51,3 +51,32 @@ body {
     top: 330px;
     left: 10px;
 }
+
+.slidecontainerLTBrow {
+    color: white;
+    position: absolute;
+    top: 430px;
+    left: 10px;
+}
+
+.slidecontainerLBBrow {
+    color: white;
+    position: absolute;
+    top: 430px;
+    left: 350px;
+}
+
+
+.slidecontainerRTBrow {
+    color: white;
+    position: absolute;
+    top: 530px;
+    left: 10px;
+}
+
+.slidecontainerRBBrow {
+    color: white;
+    position: absolute;
+    top: 530px;
+    left: 350px;
+}
