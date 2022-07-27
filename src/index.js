@@ -12,6 +12,9 @@ const gum_grd = ctx.createLinearGradient(320 * ratio, 400 * ratio, 320 * ratio, 
 gum_grd.addColorStop(0, '#f73152');
 gum_grd.addColorStop(0.35, '#ff85b1');
 
+const eyebrow_height = 6 * ratio;
+const eyebrow_width = 60 * ratio;
+
 document.body.appendChild(cnv)
 
 /* sliders to test lips' changes */
@@ -120,23 +123,45 @@ function frame() {
 function drawLeftEye() {
     let posX = 340 * ratio;
     let posY = 375 * ratio;
+    let hT = parseFloat(LTBrow.innerHTML) * (35*ratio - eyebrow_height/2)/100 + eyebrow_height/2; // eye's y radii = 35*ratio
+    let hB = parseFloat(LBBrow.innerHTML) * (35*ratio - eyebrow_height/2)/100 + eyebrow_height/2;
+    let heightT = eyebrow_height * (35*ratio - hT) / (35*ratio - eyebrow_height/2); // height of the top eyebrow
+    let heightB = eyebrow_height * (35*ratio - hB) / (35*ratio - eyebrow_height/2); // height of the bottom eyebrow
     let regionLeft = new Path2D();
+    
     ctx.save();
-    regionLeft.rect(posX - 20*ratio, 360*ratio, 50*ratio, 200*ratio);
+    regionLeft.rect(posX - 20*ratio, posY - hT - heightT/2, 50*ratio, hT + hB + heightT/2 - heightB/2);
     ctx.clip(regionLeft);
     drawEye(posX, posY);
     ctx.restore();
+
+    drawLeftEyebrows();
+}
+
+function drawLeftEyebrows(posX, posY) {
+
 }
 
 function drawRightEye() {
     let posX = 460 * ratio;
     let posY = 375 * ratio;
+    let hT = parseFloat(RTBrow.innerHTML) * (35*ratio - eyebrow_height/2)/100 + eyebrow_height/2; // eye's y radii = 35*ratio
+    let hB = parseFloat(RBBrow.innerHTML) * (35*ratio - eyebrow_height/2)/100 + eyebrow_height/2;
+    let heightT = eyebrow_height * (35*ratio - hT) / (35*ratio - eyebrow_height/2); // height of the top eyebrow
+    let heightB = eyebrow_height * (35*ratio - hB) / (35*ratio - eyebrow_height/2); // height of the bottom eyebrow
     let regionRight = new Path2D();
+    
     ctx.save();
-    regionRight.rect(posX - 20*ratio, 350*ratio, 50*ratio, 50*ratio);
+    regionRight.rect(posX - 20*ratio, posY - hT - heightT/2, 50*ratio, hT + hB + heightT/2 - heightB/2);
     ctx.clip(regionRight);
     drawEye(posX, posY);
     ctx.restore();
+
+    drawRightEyebrows();
+}
+
+function drawRightEyebrows(posX, posY) {
+    
 }
 
 function drawBackground() {
