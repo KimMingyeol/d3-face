@@ -62,16 +62,16 @@ body {
 .slidecontainerLBBrow {
     color: white;
     position: absolute;
-    top: 430px;
-    left: 350px;
+    top: 530px;
+    left: 10px;
 }
 
 
 .slidecontainerRTBrow {
     color: white;
     position: absolute;
-    top: 530px;
-    left: 10px;
+    top: 430px;
+    left: 350px;
 }
 
 .slidecontainerRBBrow {
@@ -79,4 +79,11 @@ body {
     position: absolute;
     top: 530px;
     left: 350px;
+}
+
+.slidecontainerEyeDir {
+    color: white;
+    position: absolute;
+    top: 630px;
+    left: 10px;
 }

@@ -84,6 +84,18 @@ slider_RTBrow.oninput = function() {RTBrow.innerHTML = this.value;}
 slider_RBBrow.oninput = function() {RBBrow.innerHTML = this.value;}
 /* */
 
+/* sliders to test eyes' directions */
+let slider_EyeDist = document.getElementById("slider_EyeDist");
+let slider_EyeAngle = document.getElementById("slider_EyeAngle");
+let EyeDist = document.getElementById("EyeDist");
+let EyeAngle = document.getElementById("EyeAngle");
+EyeDist.innerHTML = slider_EyeDist.value;
+EyeAngle.innerHTML = slider_EyeAngle.value;
+
+slider_EyeDist.oninput = function() {EyeDist.innerHTML = this.value;}
+slider_EyeAngle.oninput = function() {EyeAngle.innerHTML = this.value;}
+/* */
+
 const maxDL = 100;
 const maxDR = 100;
 
@@ -121,8 +133,12 @@ function frame() {
 }
 
 function drawLeftEye() {
-    let posX = 340 * ratio;
-    let posY = 375 * ratio;
+    let edist = parseFloat(EyeDist.innerHTML) * ratio;
+    let eangle = parseFloat(EyeAngle.innerHTML) * Math.PI/180;
+    
+    let posX0 = 340 * ratio;
+    let posY0 = 375 * ratio;
+
     let hT = parseFloat(LTBrow.innerHTML) * (35*ratio - eyebrow_height/2)/100 + eyebrow_height/2; // eye's y radii = 35*ratio
     let hB = parseFloat(LBBrow.innerHTML) * (35*ratio - eyebrow_height/2)/100 + eyebrow_height/2;
     let heightT = eyebrow_height; // height of the top eyebrow
@@ -130,6 +146,9 @@ function drawLeftEye() {
     let widthT = hT > 35*ratio/2 ? 0 : eyebrow_width*(eyebrow_height/2 - hT)/(35*ratio - eyebrow_height) + eyebrow_width;
     let widthB = hB > 35*ratio/2 ? 0 : eyebrow_width*(eyebrow_height/2 - hB)/(35*ratio - eyebrow_height) + eyebrow_width;
     let regionLeft = new Path2D();
+
+    let posX = hT > 35*ratio/2 ? posX0 + edist*Math.cos(eangle) * 0.5 : posX0 + edist*Math.cos(eangle) * widthT/eyebrow_width;
+    let posY = posY0 + edist*Math.sin(eangle);
     
     ctx.save();
     regionLeft.rect(posX - 20*ratio, posY - hT - heightT/2, 50*ratio, hT + hB + heightT/2 + heightB/2);
@@ -139,13 +158,17 @@ function drawLeftEye() {
 
     /* drawing eyebrows*/
     ctx.fillStyle = "black";
-    ctx.fillRect(posX - widthT/2, posY - hT - heightT/2, widthT, heightT); // Top eyebrow
-    ctx.fillRect(posX - widthB/2, posY + hB - heightB/2, widthB, heightB); // Bottom eyebrow
+    ctx.fillRect(posX0 - widthT/2, posY - hT - heightT/2, widthT, heightT); // Top eyebrow
+    ctx.fillRect(posX0 - widthB/2, posY + hB - heightB/2, widthB, heightB); // Bottom eyebrow
 }
 
 function drawRightEye() {
-    let posX = 460 * ratio;
-    let posY = 375 * ratio;
+    let edist = parseFloat(EyeDist.innerHTML) * ratio;
+    let eangle = parseFloat(EyeAngle.innerHTML) * Math.PI/180;
+
+    let posX0 = 460 * ratio;
+    let posY0 = 375 * ratio;
+
     let hT = parseFloat(RTBrow.innerHTML) * (35*ratio - eyebrow_height/2)/100 + eyebrow_height/2; // eye's y radii = 35*ratio
     let hB = parseFloat(RBBrow.innerHTML) * (35*ratio - eyebrow_height/2)/100 + eyebrow_height/2;
     let heightT = eyebrow_height; // height of the top eyebrow
@@ -153,6 +176,9 @@ function drawRightEye() {
     let widthT = hT > 35*ratio/2 ? 0 : eyebrow_width*(eyebrow_height/2 - hT)/(35*ratio - eyebrow_height) + eyebrow_width;
     let widthB = hB > 35*ratio/2 ? 0 : eyebrow_width*(eyebrow_height/2 - hB)/(35*ratio - eyebrow_height) + eyebrow_width;
     let regionRight = new Path2D();
+    
+    let posX = hT > 35*ratio/2 ? posX0 + edist*Math.cos(eangle) * 0.5 : posX0 + edist*Math.cos(eangle) * widthT/eyebrow_width;
+    let posY = posY0 + edist*Math.sin(eangle);
     
     ctx.save();
     regionRight.rect(posX - 20*ratio, posY - hT - heightT/2, 50*ratio, hT + hB + heightT/2 + heightB/2);
@@ -162,8 +188,8 @@ function drawRightEye() {
 
     /* drawing eyebrows*/
     ctx.fillStyle = "black";
-    ctx.fillRect(posX - widthT/2, posY - hT - heightT/2, widthT, heightT); // Top eyebrow
-    ctx.fillRect(posX - widthB/2, posY + hB - heightB/2, widthB, heightB); // Bottom eyebrow
+    ctx.fillRect(posX0 - widthT/2, posY - hT - heightT/2, widthT, heightT); // Top eyebrow
+    ctx.fillRect(posX0 - widthB/2, posY + hB - heightB/2, widthB, heightB); // Bottom eyebrow
 }
 
 function drawBackground() {
@@ -174,7 +200,7 @@ function drawBackground() {
 
 function drawFace() {
     ctx.beginPath();
-    ctx.arc(400* ratio, 400* ratio, 200* ratio, 0, 2*Math.PI);
+    ctx.arc(400* ratio, 400*ratio, 200*ratio, 0, 2*Math.PI);
     ctx.stroke();
     // ctx.fillStyle = '#44b3fc';
     ctx.fillStyle = face_grd;
@@ -183,15 +209,16 @@ function drawFace() {
 
 function drawEye(posX, posY) {
     ctx.beginPath();
-    ctx.ellipse(posX, posY, 15 * ratio, 35 * ratio, 0, 0, 2 * Math.PI);
+    ctx.ellipse(posX, posY, 15*ratio, 35*ratio, 0, 0, 2*Math.PI);
     ctx.fillStyle = '#000';
     ctx.fill();
-    drawEyeLight(posX + 5 * ratio, posY - 19 * ratio);
+
+    drawEyeLight(posX + 5*ratio, posY - 19*ratio);
 }
 
 function drawEyeLight(posX, posY) {
     ctx.beginPath();
-    ctx.ellipse(posX, posY, 4.5 * ratio, 7 * ratio, 0, 0, Math.PI * 2);
+    ctx.ellipse(posX, posY, 4.5*ratio, 7*ratio, 0, 0, 2*Math.PI);
     ctx.fillStyle = '#fff';
     ctx.fill();
 }
@@ -200,7 +227,7 @@ function drawLips() {
     // additional conditions may be further needed (left < right)
     let thetaLB = parseFloat(LBdeg.innerHTML) * Math.PI/180;
     let thetaRB = parseFloat(RBdeg.innerHTML) * Math.PI/180;
-    let k = 0.2;
+    let k = 0.2; // may be further controlled manually or automatically...
 
     let offLT = [parseFloat(LTx.innerHTML), parseFloat(LTy.innerHTML)]; // [offsetX, offsetY]
     let offRT = [parseFloat(RTx.innerHTML), parseFloat(RTy.innerHTML)];
@@ -250,10 +277,6 @@ function drawLips() {
     
     ctx.lineWidth = 6 * ratio;
     ctx.stroke();
-}
-
-function drawMouth() {
-
 }
 
 // function drawPie(sliceCount) {
