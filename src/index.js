@@ -6,7 +6,11 @@ const ctx = cnv.getContext('2d')
 
 const face_grd = ctx.createRadialGradient(550 * ratio, 250 * ratio, 5 * ratio, 440 * ratio, 360 * ratio, 190 * ratio);
 face_grd.addColorStop(0, '#abddff');
-face_grd.addColorStop(1, '#0067e3')
+face_grd.addColorStop(1, '#0067e3');
+
+const gum_grd = ctx.createLinearGradient(320 * ratio, 400 * ratio, 320 * ratio, 500 * ratio);
+gum_grd.addColorStop(0, '#f73152');
+gum_grd.addColorStop(0.35, '#ff85b1');
 
 document.body.appendChild(cnv)
 
@@ -86,8 +90,8 @@ setInterval(frame, 1000 / 20)
 function frame() {
   drawBackground();
   drawFace();
-  drawEye(340 * ratio, 370 * ratio);
-  drawEye(460 * ratio, 370 * ratio);
+  drawEye(340 * ratio, 375 * ratio);
+  drawEye(460 * ratio, 375 * ratio);
   drawLips();
 //   drawPie(state.colors.length)
 //   rotateSquareAndDrawSquare()
@@ -96,7 +100,7 @@ function frame() {
 
 function drawBackground() {
     ctx.fillStyle = '#000'
-    // ctx.fillStyle = '#fff'
+    // ctx.fillStyle = "#fff"
     ctx.fillRect(0, 0, cnv.width, cnv.height)
 }
 
@@ -109,7 +113,8 @@ function drawFace() {
     ctx.fill();
 }
 
-function drawEye(posX, posY) {ctx.beginPath();
+function drawEye(posX, posY) {
+    ctx.beginPath();
     ctx.ellipse(posX, posY, 15 * ratio, 35 * ratio, 0, 0, Math.PI * 2);
     ctx.fillStyle = '#000';
     ctx.fill();
@@ -133,11 +138,11 @@ function drawLips() {
     let offRT = [parseFloat(RTx.innerHTML), parseFloat(RTy.innerHTML)];
 
     let LT_x_coord = (300 + offLT[0]) * ratio;
-    let LT_y_coord = (460 + offLT[1]) * ratio;
+    let LT_y_coord = (450 + offLT[1]) * ratio;
     let LB_x_coord = LT_x_coord + maxDL*(1-(1-k)*Math.cos(thetaLB)) * Math.cos(thetaLB) * ratio;
     let LB_y_coord = LT_y_coord + maxDL*(1-(1-k)*Math.cos(thetaLB)) * Math.sin(thetaLB) * ratio;
     let RT_x_coord = (500 + offRT[0]) * ratio;
-    let RT_y_coord = (460 + offRT[1]) * ratio;
+    let RT_y_coord = (450 + offRT[1]) * ratio;
     let RB_x_coord = RT_x_coord - maxDR*(1-(1-k)*Math.cos(thetaRB)) * Math.cos(thetaRB) * ratio;
     let RB_y_coord = RT_y_coord + maxDR*(1-(1-k)*Math.cos(thetaRB)) * Math.sin(thetaRB) * ratio;
 
@@ -157,17 +162,26 @@ function drawLips() {
     let DRB_x_coord = RT_x_coord - maxDR*(1-(1-k)*Math.cos(thetaRB + dthetaRB)) * Math.cos(thetaRB + dthetaRB) * ratio;
     let DRB_y_coord = RT_y_coord + maxDR*(1-(1-k)*Math.cos(thetaRB + dthetaRB)) * Math.sin(thetaRB + dthetaRB) * ratio;
 
-    ctx.moveTo(LT_x_coord, LT_y_coord);
-    ctx.bezierCurveTo(DLB_x_coord, DLB_y_coord, DRB_x_coord, DRB_y_coord, RT_x_coord, RT_y_coord);
+    // ctx.moveTo(LT_x_coord, LT_y_coord);
+    // ctx.bezierCurveTo(DLB_x_coord, DLB_y_coord, DRB_x_coord, DRB_y_coord, RT_x_coord, RT_y_coord);
+    ctx.moveTo(RT_x_coord, RT_y_coord);
+    ctx.bezierCurveTo(DRB_x_coord, DRB_y_coord, DLB_x_coord, DLB_y_coord, LT_x_coord, LT_y_coord);
     /* bottom lip */
+
+    ctx.save(); // only draw within the area bounded by the lips path
     
-    ctx.save();
+    ctx.clip();
+    ctx.fillStyle = "#000";
+    ctx.fill();
+    ctx.fillStyle = '#fff';
+    ctx.fillRect(320 * ratio, 200 * ratio, 160 * ratio, 260*ratio);
+    ctx.fillStyle = gum_grd;
+    ctx.fillRect(320 * ratio, 200 * ratio, 160 * ratio, 245*ratio);
+    
+    ctx.restore(); // restore context to redraw on the whole area of the canvas
+    
     ctx.lineWidth = 6 * ratio;
     ctx.stroke();
-    
-    // ctx.fillStyle = "#000";
-    // ctx.fill();
-    ctx.restore();
 }
 
 function drawMouth() {
