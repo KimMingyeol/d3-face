@@ -118,17 +118,31 @@ function drawEyeLight(posX, posY) {
 }
 
 function drawLips() {
+    // additional conditions may be further needed (left < right)
     let offLT = [parseFloat(LTx.innerHTML), parseFloat(LTy.innerHTML)]; // [offsetX, offsetY]
-    let offLB = [parseFloat(LBx.innerHTML), parseFloat(LBy.innerHTML)];
-    let offRB = [parseFloat(RBx.innerHTML), parseFloat(RBy.innerHTML)];
+    let offLB = [parseFloat(LTx.innerHTML) < parseFloat(LBx.innerHTML) ? parseFloat(LBx.innerHTML) : parseFloat(LTx.innerHTML), parseFloat(LBy.innerHTML)];
+    let offRB = [parseFloat(RBx.innerHTML) > parseFloat(RTx.innerHTML) ? parseFloat(RTx.innerHTML) : parseFloat(RBx.innerHTML), parseFloat(RBy.innerHTML)];
     let offRT = [parseFloat(RTx.innerHTML), parseFloat(RTy.innerHTML)];
 
     ctx.beginPath();
     ctx.moveTo((300 + offLT[0]) * ratio, (430 + offLT[1]) * ratio);
     ctx.bezierCurveTo((320 + offLB[0]) * ratio, (500 + offLB[1]) * ratio, (480 + offRB[0]) * ratio, (500 + offRB[1]) * ratio, (500 + offRT[0]) * ratio, (430 + offRT[1]) * ratio);
+    
+    /* downside lips; positive value <= 100 */
+    let downL = 100;
+    let downR = 100;
+    ctx.moveTo((300 + offLT[0]) * ratio, (430 + offLT[1]) * ratio);
+    ctx.bezierCurveTo((300 + offLT[0]) * ratio, (500 + offLB[1] + downL) * ratio, (500 + offRT[0]) * ratio, (500 + offRB[1] + downR) * ratio, (500 + offRT[0]) * ratio, (430 + offRT[1]) * ratio);
+    /* downside lips */
+
+    // ctx.moveTo(300 * ratio, 430 * ratio);
+    // ctx.bezierCurveTo(320 * ratio, 430 * ratio, 480 * ratio, 430 * ratio, 500 * ratio, 430 * ratio);
+    
     ctx.save();
     ctx.lineWidth = 6 * ratio;
     ctx.stroke();
+    
+    // ctx.fillStyle = "#000";
     // ctx.fill();
     ctx.restore();
 }
