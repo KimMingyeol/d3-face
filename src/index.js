@@ -10,6 +10,50 @@ face_grd.addColorStop(1, '#0067e3')
 
 document.body.appendChild(cnv)
 
+/* slider to test lips' changes */
+let slider_LTx = document.getElementById("slider_LTx");
+let slider_LTy = document.getElementById("slider_LTy");
+let LTx = document.getElementById("LTx");
+let LTy = document.getElementById("LTy");
+LTx.innerHTML = slider_LTx.value;
+LTy.innerHTML = slider_LTy.value;
+// console.log(parseFloat(LTx.innerHTML));
+
+let slider_LBx = document.getElementById("slider_LBx");
+let slider_LBy = document.getElementById("slider_LBy");
+let LBx = document.getElementById("LBx");
+let LBy = document.getElementById("LBy");
+LBx.innerHTML = slider_LBx.value;
+LBy.innerHTML = slider_LBy.value;
+
+let slider_RBx = document.getElementById("slider_RBx");
+let slider_RBy = document.getElementById("slider_RBy");
+let RBx = document.getElementById("RBx");
+let RBy = document.getElementById("RBy");
+RBx.innerHTML = slider_RBx.value;
+RBy.innerHTML = slider_RBy.value;
+
+let slider_RTx = document.getElementById("slider_RTx");
+let slider_RTy = document.getElementById("slider_RTy");
+let RTx = document.getElementById("RTx");
+let RTy = document.getElementById("RTy");
+RTx.innerHTML = slider_RTx.value;
+RTy.innerHTML = slider_RTy.value;
+
+slider_LTx.oninput = function() {LTx.innerHTML = this.value;}
+slider_LTy.oninput = function() {LTy.innerHTML = this.value;}
+
+slider_LBx.oninput = function() {LBx.innerHTML = this.value;}
+slider_LBy.oninput = function() {LBy.innerHTML = this.value;}
+
+slider_RBx.oninput = function() {RBx.innerHTML = this.value;}
+slider_RBy.oninput = function() {RBy.innerHTML = this.value;}
+
+slider_RTx.oninput = function() {RTx.innerHTML = this.value;}
+slider_RTy.oninput = function() {RTy.innerHTML = this.value;}
+
+/* */
+
 // let state = {
 //   colors: [randomColor(), randomColor(), randomColor(), randomColor()],
 //   circle: {
@@ -46,7 +90,7 @@ function frame() {
 
 function drawBackground() {
     ctx.fillStyle = '#000'
-    // ctx.fillStyle = face_grd
+    // ctx.fillStyle = '#fff'
     ctx.fillRect(0, 0, cnv.width, cnv.height)
 }
 
@@ -74,10 +118,10 @@ function drawEyeLight(posX, posY) {
 }
 
 function drawLips() {
-    let offLT = [0, 0]; // [offsetX, offsetY]
-    let offLB = [0, 0];
-    let offRB = [0, 0];
-    let offRT = [0, 0];
+    let offLT = [parseFloat(LTx.innerHTML), parseFloat(LTy.innerHTML)]; // [offsetX, offsetY]
+    let offLB = [parseFloat(LBx.innerHTML), parseFloat(LBy.innerHTML)];
+    let offRB = [parseFloat(RBx.innerHTML), parseFloat(RBy.innerHTML)];
+    let offRT = [parseFloat(RTx.innerHTML), parseFloat(RTy.innerHTML)];
 
     ctx.beginPath();
     ctx.moveTo((300 + offLT[0]) * ratio, (430 + offLT[1]) * ratio);

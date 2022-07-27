@@ -9,4 +9,31 @@ body {
     justify-content: center;
     align-items: center;
 }
-  
+
+.slidecontainerLT {
+    color: white;
+    position: absolute;
+    top: 30px;
+    left: 10px;
+}
+
+.slidecontainerLB {
+    color: white;
+    position: absolute;
+    top: 130px;
+    left: 10px;
+}
+
+.slidecontainerRB {
+    color: white;
+    position: absolute;
+    top: 130px;
+    left: 350px;
+}
+
+.slidecontainerRT {
+    color: white;
+    position: absolute;
+    top: 30px;
+    left: 350px;
+}

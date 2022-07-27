@@ -10,9 +10,27 @@
 </head>
 
 <body>
-	<div id="app"></div>
-	<script src="src/index.js">
-	</script>
+    <div class="slidecontainerLT">
+        <p>LT <span id="LTx"></span>, <span id="LTy"></span></p>
+        <input type="range" min="-100" max="100" value="0" id="slider_LTx">
+        <input type="range" min="-100" max="100" value="0" id="slider_LTy">
+    </div>
+    <div class="slidecontainerLB">
+        <p>LB <span id="LBx"></span>, <span id="LBy"></span></p>
+        <input type="range" min="-100" max="100" value="0" id="slider_LBx">
+        <input type="range" min="-100" max="100" value="0" id="slider_LBy">
+    </div>
+    <div class="slidecontainerRB">
+        <p>RB <span id="RBx"></span>, <span id="RBy"></span></p>
+        <input type="range" min="-100" max="100" value="0" id="slider_RBx">
+        <input type="range" min="-100" max="100" value="0" id="slider_RBy">
+    </div>
+    <div class="slidecontainerRT">
+        <p>RT <span id="RTx"></span>, <span id="RTy"></span></p>
+        <input type="range" min="-100" max="100" value="0" id="slider_RTx">
+        <input type="range" min="-100" max="100" value="0" id="slider_RTy">
+    </div>
+	<script src="src/index.js"></script>
 </body>
 
 </html>
