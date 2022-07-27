@@ -125,25 +125,22 @@ function drawLeftEye() {
     let posY = 375 * ratio;
     let hT = parseFloat(LTBrow.innerHTML) * (35*ratio - eyebrow_height/2)/100 + eyebrow_height/2; // eye's y radii = 35*ratio
     let hB = parseFloat(LBBrow.innerHTML) * (35*ratio - eyebrow_height/2)/100 + eyebrow_height/2;
-    let heightT = eyebrow_height * (35*ratio - hT) / (35*ratio - eyebrow_height/2); // height of the top eyebrow
-    let heightB = eyebrow_height * (35*ratio - hB) / (35*ratio - eyebrow_height/2); // height of the bottom eyebrow
+    let heightT = eyebrow_height; // height of the top eyebrow
+    let heightB = eyebrow_height; // height of the bottom eyebrow
+    let widthT = hT > 35*ratio/2 ? 0 : eyebrow_width*(eyebrow_height/2 - hT)/(35*ratio - eyebrow_height) + eyebrow_width;
+    let widthB = hB > 35*ratio/2 ? 0 : eyebrow_width*(eyebrow_height/2 - hB)/(35*ratio - eyebrow_height) + eyebrow_width;
     let regionLeft = new Path2D();
     
     ctx.save();
-    regionLeft.rect(posX - 20*ratio, posY - hT - heightT/2, 50*ratio, hT + hB + heightT/2 - heightB/2);
+    regionLeft.rect(posX - 20*ratio, posY - hT - heightT/2, 50*ratio, hT + hB + heightT/2 + heightB/2);
     ctx.clip(regionLeft);
     drawEye(posX, posY);
     ctx.restore();
 
     /* drawing eyebrows*/
     ctx.fillStyle = "black";
-    ctx.fillRect(posX - eyebrow_width/2, posY - hT - heightT/2, eyebrow_width, heightT); // Top eyebrow
-    ctx.fillRect(posX - eyebrow_width/2, posY + hB - heightB/2, eyebrow_width, heightB); // Bottom eyebrow
-    drawLeftEyebrows();
-}
-
-function drawLeftEyebrows(posX, posY) {
-
+    ctx.fillRect(posX - widthT/2, posY - hT - heightT/2, widthT, heightT); // Top eyebrow
+    ctx.fillRect(posX - widthB/2, posY + hB - heightB/2, widthB, heightB); // Bottom eyebrow
 }
 
 function drawRightEye() {
@@ -151,25 +148,22 @@ function drawRightEye() {
     let posY = 375 * ratio;
     let hT = parseFloat(RTBrow.innerHTML) * (35*ratio - eyebrow_height/2)/100 + eyebrow_height/2; // eye's y radii = 35*ratio
     let hB = parseFloat(RBBrow.innerHTML) * (35*ratio - eyebrow_height/2)/100 + eyebrow_height/2;
-    let heightT = eyebrow_height * (35*ratio - hT) / (35*ratio - eyebrow_height/2); // height of the top eyebrow
-    let heightB = eyebrow_height * (35*ratio - hB) / (35*ratio - eyebrow_height/2); // height of the bottom eyebrow
+    let heightT = eyebrow_height; // height of the top eyebrow
+    let heightB = eyebrow_height; // height of the bottom eyebrow
+    let widthT = hT > 35*ratio/2 ? 0 : eyebrow_width*(eyebrow_height/2 - hT)/(35*ratio - eyebrow_height) + eyebrow_width;
+    let widthB = hB > 35*ratio/2 ? 0 : eyebrow_width*(eyebrow_height/2 - hB)/(35*ratio - eyebrow_height) + eyebrow_width;
     let regionRight = new Path2D();
     
     ctx.save();
-    regionRight.rect(posX - 20*ratio, posY - hT - heightT/2, 50*ratio, hT + hB + heightT/2 - heightB/2);
+    regionRight.rect(posX - 20*ratio, posY - hT - heightT/2, 50*ratio, hT + hB + heightT/2 + heightB/2);
     ctx.clip(regionRight);
     drawEye(posX, posY);
     ctx.restore();
 
     /* drawing eyebrows*/
     ctx.fillStyle = "black";
-    ctx.fillRect(posX - eyebrow_width/2, posY - hT - heightT/2, eyebrow_width, heightT); // Top eyebrow
-    ctx.fillRect(posX - eyebrow_width/2, posY + hB - heightB/2, eyebrow_width, heightB); // Bottom eyebrow
-    drawRightEyebrows();
-}
-
-function drawRightEyebrows(posX, posY) {
-    
+    ctx.fillRect(posX - widthT/2, posY - hT - heightT/2, widthT, heightT); // Top eyebrow
+    ctx.fillRect(posX - widthB/2, posY + hB - heightB/2, widthB, heightB); // Bottom eyebrow
 }
 
 function drawBackground() {
