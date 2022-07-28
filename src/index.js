@@ -100,7 +100,6 @@ const maxDL = 100;
 const maxDR = 100;
 
 const emotion_preset = {
-    thresh: 0.1, // maybe useless..?
     default: {
         LT: [0, 0], // [x, y]
         RT: [0, 0], // [x, y]
@@ -130,6 +129,7 @@ const emotion_preset = {
 }
 
 let change_state = {
+    thresh: 0.01, // due to machine error (0.1 is actually computed as 0.9999...)
     emotion: 'none',
     changing: false,
     dt: 0.1,
@@ -271,8 +271,8 @@ function emotion_update() {
     EyeDist.innerHTML = String(change_state['EyeDir']['start'][0] + (emotion_preset[etype]['EyeDir'][0] - change_state['EyeDir']['start'][0]) * Math.sin(Math.PI * change_state['t'] / 2));
     EyeAngle.innerHTML = String(change_state['EyeDir']['start'][1] + (emotion_preset[etype]['EyeDir'][1] - change_state['EyeDir']['start'][1]) * Math.sin(Math.PI * change_state['t'] / 2));
 
-    console.log(change_state['t'])
-    if (change_state['t'] === 1) {
+    // console.log(change_state['t']) // DEBUG to check the machine error
+    if (Math.abs(change_state['t'] - 1) < change_state['thresh']) {
         console.log("Animated Done");
         change_state['emotion'] = 'none';
         change_state['t'] = 0;
