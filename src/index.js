@@ -126,6 +126,136 @@ const emotion_preset = {
         RBBrow: 100,
         EyeDir: [0, 0] // [EyeDist, EyeAngle]
     },
+    smile: {
+        LT: [0, -5], // [x, y]
+        RT: [0, -5], // [x, y]
+        LBdeg: 60,
+        RBdeg: 60,
+        DL: 0,
+        DR: 0,
+        LTBrow: 100,
+        RTBrow: 100,
+        LBBrow: 100,
+        RBBrow: 100,
+        EyeDir: [0, 0] // [EyeDist, EyeAngle]
+    },
+    annoy: {
+        LT: [0, 30], // [x, y]
+        RT: [0, 30], // [x, y]
+        LBdeg: -60,
+        RBdeg: -60,
+        DL: 0,
+        DR: 0,
+        LTBrow: 50,
+        RTBrow: 50,
+        LBBrow: 100,
+        RBBrow: 100,
+        EyeDir: [0, 0] // [EyeDist, EyeAngle]
+    },
+    angry: {
+        LT: [0, 50], // [x, y]
+        RT: [0, 50], // [x, y]
+        LBdeg: -77,
+        RBdeg: -77,
+        DL: 30,
+        DR: 30,
+        LTBrow: 30,
+        RTBrow: 30,
+        LBBrow: 100,
+        RBBrow: 100,
+        EyeDir: [0, 0] // [EyeDist, EyeAngle]
+    },
+    laugh: {
+        LT: [0, -5], // [x, y]
+        RT: [0, -5], // [x, y]
+        LBdeg: -30,
+        RBdeg: -30,
+        DL: 100,
+        DR: 100,
+        LTBrow: 100,
+        RTBrow: 100,
+        LBBrow: 35,
+        RBBrow: 35,
+        EyeDir: [0, 0] // [EyeDist, EyeAngle]
+    },
+    surprise: {
+        LT: [50, 50], // [x, y]
+        RT: [-50, 50], // [x, y]
+        LBdeg: -80,
+        RBdeg: -80,
+        DL: 75,
+        DR: 75,
+        LTBrow: 100,
+        RTBrow: 100,
+        LBBrow: 100,
+        RBBrow: 100,
+        EyeDir: [0, 0] // [EyeDist, EyeAngle]
+    },
+    sleepy: {
+        LT: [40, 10], // [x, y]
+        RT: [-40, 10], // [x, y]
+        LBdeg: 44,
+        RBdeg: -35,
+        DL: 0,
+        DR: 8,
+        LTBrow: 0,
+        RTBrow: 0,
+        LBBrow: 0,
+        RBBrow: 0,
+        EyeDir: [0, 0] // [EyeDist, EyeAngle]
+    },
+    disapprove0: {
+        LT: [39, 10], // [x, y]
+        RT: [-25, 0], // [x, y]
+        LBdeg: 25,
+        RBdeg: -47,
+        DL: 0,
+        DR: 0,
+        LTBrow: 43,
+        RTBrow: 100,
+        LBBrow: 100,
+        RBBrow: 100,
+        EyeDir: [0, 0] // [EyeDist, EyeAngle]
+    },
+    disapprove1: {
+        LT: [45, 10], // [x, y]
+        RT: [-10, -5], // [x, y]
+        LBdeg: 35,
+        RBdeg: -50,
+        DL: 0,
+        DR: 0,
+        LTBrow: 0,
+        RTBrow: 22,
+        LBBrow: 100,
+        RBBrow: 71,
+        EyeDir: [0, 0] // [EyeDist, EyeAngle]
+    },
+    sneer: {
+        LT: [50, 0], // [x, y]
+        RT: [-50, 0], // [x, y]
+        LBdeg: 20,
+        RBdeg: -50,
+        DL: 0,
+        DR: 71,
+        LTBrow: 100,
+        RTBrow: 100,
+        LBBrow: 25,
+        RBBrow: 25,
+        EyeDir: [0, 0] // [EyeDist, EyeAngle]
+    },
+    disgust: {
+        LT: [40, 18], // [x, y]
+        RT: [-9, 4], // [x, y]
+        LBdeg: -14,
+        RBdeg: -50,
+        DL: 38,
+        DR: 26,
+        LTBrow: 20,
+        RTBrow: 30,
+        LBBrow: 43,
+        RBBrow: 54,
+        EyeDir: [0, 0] // [EyeDist, EyeAngle]
+    },
 }
 
 let change_state = {
@@ -172,12 +302,52 @@ let change_state = {
 /* test emotion changes */
 let defaultButton = document.getElementById("defaultButton");
 let happyButton = document.getElementById("happyButton");
+let smileButton = document.getElementById("smileButton");
+let annoyButton = document.getElementById("annoyButton");
+let angryButton = document.getElementById("angryButton");
+let laughButton = document.getElementById("laughButton");
+let surpriseButton = document.getElementById("surpriseButton");
+let sleepyButton = document.getElementById("sleepyButton");
+let disapprove0Button = document.getElementById("disapprove0Button");
+let disapprove1Button = document.getElementById("disapprove1Button");
+let sneerButton = document.getElementById("sneerButton");
+let disgustButton = document.getElementById("disgustButton");
 
 defaultButton.onclick = function() {
     emotion_init('default');
 }
 happyButton.onclick = function() {
     emotion_init('happy');
+}
+smileButton.onclick = function() {
+    emotion_init('smile');
+}
+annoyButton.onclick = function() {
+    emotion_init('annoy');
+}
+angryButton.onclick = function() {
+    emotion_init('angry');
+}
+laughButton.onclick = function() {
+    emotion_init('laugh');
+}
+surpriseButton.onclick = function() {
+    emotion_init('surprise');
+}
+sleepyButton.onclick = function() {
+    emotion_init('sleepy');
+}
+disapprove0Button.onclick = function() {
+    emotion_init('disapprove0');
+}
+disapprove1Button.onclick = function() {
+    emotion_init('disapprove1');
+}
+sneerButton.onclick = function() {
+    emotion_init('sneer');
+}
+disgustButton.onclick = function() {
+    emotion_init('disgust');
 }
 /* */
 
