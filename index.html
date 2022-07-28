@@ -10,9 +10,68 @@
 </head>
 
 <body>
-	<div id="app"></div>
-	<script src="src/index.js">
-	</script>
+    <div class="slidecontainerLT">
+        <p>LT <span id="LTx"></span>, <span id="LTy"></span></p>
+        <input type="range" min="-50" max="50" value="0" id="slider_LTx">
+        <input type="range" min="-50" max="50" value="0" id="slider_LTy">
+    </div>
+    <div class="slidecontainerLB">
+        <p>LB <span id="LBdeg"></span></p>
+        <input type="range" min="-90" max="90" value="0" id="slider_LBdeg">
+    </div>
+    <div class="slidecontainerRB">
+        <p>RB <span id="RBdeg"></span></p>
+        <input type="range" min="-90" max="90" value="0" id="slider_RBdeg">
+    </div>
+    <div class="slidecontainerRT">
+        <p>RT <span id="RTx"></span>, <span id="RTy"></span></p>
+        <input type="range" min="-50" max="50" value="0" id="slider_RTx">
+        <input type="range" min="-50" max="50" value="0" id="slider_RTy">
+    </div>
+    <div class="slidecontainerDL">
+        <p>Bottom lips: Left <span id="DL"></span></p>
+        <input type="range" min="0" max="100" value="0" id="slider_DL">
+    </div>
+    <div class="slidecontainerDR">
+        <p>Bottom lips: Right <span id="DR"></span></p>
+        <input type="range" min="0" max="100" value="0" id="slider_DR">
+    </div>
+    <div class="slidecontainerLTBrow">
+        <p>Left Top Eyebrow <span id="LTBrow"></span></p>
+        <input type="range" min="0" max="100" value="0" id="slider_LTBrow">
+    </div>
+    <div class="slidecontainerLBBrow">
+        <p>Left Bottom Eyebrow <span id="LBBrow"></span></p>
+        <input type="range" min="0" max="100" value="0" id="slider_LBBrow">
+    </div>
+    <div class="slidecontainerRTBrow">
+        <p>Right Top Eyebrow <span id="RTBrow"></span></p>
+        <input type="range" min="0" max="100" value="0" id="slider_RTBrow">
+    </div>
+    <div class="slidecontainerRBBrow">
+        <p>Right Bottom Eyebrow <span id="RBBrow"></span></p>
+        <input type="range" min="0" max="100" value="0" id="slider_RBBrow">
+    </div>
+    <div class="slidecontainerEyeDir">
+        <p>Eyes Dir: <span id="EyeDist"></span>, <span id="EyeAngle"></span></p>
+        <input type="range" min="0" max="10" value="0" id="slider_EyeDist">
+        <input type="range" min="-180" max="180" value="0" id="slider_EyeAngle">
+    </div>
+    <div class="buttonEmotion">
+        <input type="button" value="default" id="defaultButton">
+        <input type="button" value="happy" id="happyButton">
+        <input type="button" value="smile" id="smileButton">
+        <input type="button" value="annoy" id="annoyButton">
+        <input type="button" value="angry" id="angryButton">
+        <input type="button" value="laugh" id="laughButton">
+        <input type="button" value="surprise" id="surpriseButton">
+        <input type="button" value="sleepy" id="sleepyButton">
+        <input type="button" value="disapprove0" id="disapprove0Button">
+        <input type="button" value="disapprove1" id="disapprove1Button">
+        <input type="button" value="sneer" id="sneerButton">
+        <input type="button" value="disgust" id="disgustButton">
+    </div>
+	<script src="src/index.js"></script>
 </body>
 
 </html>
