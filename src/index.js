@@ -333,25 +333,25 @@ function emotion_update() {
     let etype = change_state['emotion'];
     change_state['t'] += change_state['dt'];
 
-    face_state['LT'][0] = String(change_state['LT']['start'][0] + (emotion_preset[etype]['LT'][0] - change_state['LT']['start'][0]) * Math.sin(Math.PI * change_state['t'] / 2));
-    face_state['LT'][1] = String(change_state['LT']['start'][1] + (emotion_preset[etype]['LT'][1] - change_state['LT']['start'][1]) * Math.sin(Math.PI * change_state['t'] / 2));
+    face_state['LT'][0] = change_state['LT']['start'][0] + (emotion_preset[etype]['LT'][0] - change_state['LT']['start'][0]) * Math.sin(Math.PI * change_state['t'] / 2);
+    face_state['LT'][1] = change_state['LT']['start'][1] + (emotion_preset[etype]['LT'][1] - change_state['LT']['start'][1]) * Math.sin(Math.PI * change_state['t'] / 2);
 
-    face_state['RT'][0] = String(change_state['RT']['start'][0] + (emotion_preset[etype]['RT'][0] - change_state['RT']['start'][0]) * Math.sin(Math.PI * change_state['t'] / 2));
-    face_state['RT'][1] = String(change_state['RT']['start'][1] + (emotion_preset[etype]['RT'][1] - change_state['RT']['start'][1]) * Math.sin(Math.PI * change_state['t'] / 2));
+    face_state['RT'][0] = change_state['RT']['start'][0] + (emotion_preset[etype]['RT'][0] - change_state['RT']['start'][0]) * Math.sin(Math.PI * change_state['t'] / 2);
+    face_state['RT'][1] = change_state['RT']['start'][1] + (emotion_preset[etype]['RT'][1] - change_state['RT']['start'][1]) * Math.sin(Math.PI * change_state['t'] / 2);
 
-    face_state['LBdeg'] = String(change_state['LBdeg']['start'] + (emotion_preset[etype]['LBdeg'] - change_state['LBdeg']['start']) * Math.sin(Math.PI * change_state['t'] / 2));
-    face_state['RBdeg'] = String(change_state['RBdeg']['start'] + (emotion_preset[etype]['RBdeg'] - change_state['RBdeg']['start']) * Math.sin(Math.PI * change_state['t'] / 2));
+    face_state['LBdeg'] = change_state['LBdeg']['start'] + (emotion_preset[etype]['LBdeg'] - change_state['LBdeg']['start']) * Math.sin(Math.PI * change_state['t'] / 2);
+    face_state['RBdeg'] = change_state['RBdeg']['start'] + (emotion_preset[etype]['RBdeg'] - change_state['RBdeg']['start']) * Math.sin(Math.PI * change_state['t'] / 2);
 
-    face_state['DL'] = String(change_state['DL']['start'] + (emotion_preset[etype]['DL'] - change_state['DL']['start']) * Math.sin(Math.PI * change_state['t'] / 2));
-    face_state['DR'] = String(change_state['DR']['start'] + (emotion_preset[etype]['DR'] - change_state['DR']['start']) * Math.sin(Math.PI * change_state['t'] / 2));
+    face_state['DL'] = change_state['DL']['start'] + (emotion_preset[etype]['DL'] - change_state['DL']['start']) * Math.sin(Math.PI * change_state['t'] / 2);
+    face_state['DR'] = change_state['DR']['start'] + (emotion_preset[etype]['DR'] - change_state['DR']['start']) * Math.sin(Math.PI * change_state['t'] / 2);
     
-    face_state['LTBrow'] = String(change_state['LTBrow']['start'] + (emotion_preset[etype]['LTBrow'] - change_state['LTBrow']['start']) * Math.sin(Math.PI * change_state['t'] / 2));
-    face_state['RTBrow'] = String(change_state['RTBrow']['start'] + (emotion_preset[etype]['RTBrow'] - change_state['RTBrow']['start']) * Math.sin(Math.PI * change_state['t'] / 2));
-    face_state['LBBrow'] = String(change_state['LBBrow']['start'] + (emotion_preset[etype]['LBBrow'] - change_state['LBBrow']['start']) * Math.sin(Math.PI * change_state['t'] / 2));
-    face_state['RBBrow'] = String(change_state['RBBrow']['start'] + (emotion_preset[etype]['RBBrow'] - change_state['RBBrow']['start']) * Math.sin(Math.PI * change_state['t'] / 2));
+    face_state['LTBrow'] = change_state['LTBrow']['start'] + (emotion_preset[etype]['LTBrow'] - change_state['LTBrow']['start']) * Math.sin(Math.PI * change_state['t'] / 2);
+    face_state['RTBrow'] = change_state['RTBrow']['start'] + (emotion_preset[etype]['RTBrow'] - change_state['RTBrow']['start']) * Math.sin(Math.PI * change_state['t'] / 2);
+    face_state['LBBrow'] = change_state['LBBrow']['start'] + (emotion_preset[etype]['LBBrow'] - change_state['LBBrow']['start']) * Math.sin(Math.PI * change_state['t'] / 2);
+    face_state['RBBrow'] = change_state['RBBrow']['start'] + (emotion_preset[etype]['RBBrow'] - change_state['RBBrow']['start']) * Math.sin(Math.PI * change_state['t'] / 2);
 
-    face_state['EyeDir'][0] = String(change_state['EyeDir']['start'][0] + (emotion_preset[etype]['EyeDir'][0] - change_state['EyeDir']['start'][0]) * Math.sin(Math.PI * change_state['t'] / 2));
-    face_state['EyeDir'][1] = String(change_state['EyeDir']['start'][1] + (emotion_preset[etype]['EyeDir'][1] - change_state['EyeDir']['start'][1]) * Math.sin(Math.PI * change_state['t'] / 2));
+    face_state['EyeDir'][0] = change_state['EyeDir']['start'][0] + (emotion_preset[etype]['EyeDir'][0] - change_state['EyeDir']['start'][0]) * Math.sin(Math.PI * change_state['t'] / 2);
+    face_state['EyeDir'][1] = change_state['EyeDir']['start'][1] + (emotion_preset[etype]['EyeDir'][1] - change_state['EyeDir']['start'][1]) * Math.sin(Math.PI * change_state['t'] / 2);
 
     // console.log(change_state['t']) // DEBUG to check the machine error
     if (Math.abs(change_state['t'] - 1) < change_state['thresh']) {
@@ -359,6 +359,18 @@ function emotion_update() {
         change_state['emotion'] = 'none';
         change_state['t'] = 0;
         change_state['changing'] = false;
+        // remove machine error using the exact value
+        face_state['LT'] = [emotion_preset[etype]['LT'][0], emotion_preset[etype]['LT'][1]];
+        face_state['RT'] = [emotion_preset[etype]['RT'][0], emotion_preset[etype]['RT'][1]];
+        face_state['LBdeg'] = emotion_preset[etype]['LBdeg'];
+        face_state['RBdeg'] = emotion_preset[etype]['RBdeg'];
+        face_state['DL'] = emotion_preset[etype]['DL'];
+        face_state['DR'] = emotion_preset[etype]['DR'];
+        face_state['LTBrow'] = emotion_preset[etype]['LTBrow'];
+        face_state['RTBrow'] = emotion_preset[etype]['RTBrow'];
+        face_state['LBBrow'] = emotion_preset[etype]['LBBrow'];
+        face_state['RBBrow'] = emotion_preset[etype]['RBBrow'];
+        face_state['EyeDir'] = [emotion_preset[etype]['EyeDir'][0], emotion_preset[etype]['EyeDir'][1]];
     }
 }
 
