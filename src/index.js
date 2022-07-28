@@ -520,3 +520,16 @@ function drawLips() {
     ctx.lineWidth = 6 * ratio;
     ctx.stroke();
 }
+
+window.onload = () => {
+	// REQUIRED: Tell d3-api that we're still running ok (faster than every 3000 ms) or the page will be reloaded.
+	window.setInterval(() => {
+		DRDoubleSDK.resetWatchdog();
+	}, 2000);
+
+	// DRDoubleSDK 
+	onConnect();
+	DRDoubleSDK.on("connect", () => {
+		onConnect();
+	});
+};
