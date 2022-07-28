@@ -87,3 +87,9 @@ body {
     top: 630px;
     left: 10px;
 }
+
+.buttonEmotion {
+    position: absolute;
+    top: 30px;
+    left: 690px;
+}

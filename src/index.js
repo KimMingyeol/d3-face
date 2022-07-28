@@ -99,6 +99,63 @@ slider_EyeAngle.oninput = function() {EyeAngle.innerHTML = this.value;}
 const maxDL = 100;
 const maxDR = 100;
 
+const emotion_preset = {
+    thresh: 0.01,
+    default: {
+        LT: [0, 0], // [x, y]
+        RT: [0, 0], // [x, y]
+        LB: 0,
+        RB: 0,
+        DL: 0,
+        DR: 0,
+        LTBrow: 0,
+        RTBrow: 0,
+        LBBrow: 0,
+        RBBrow: 0,
+        EyeDir: [0, 0] // [EyeDist, EyeAngle]
+    },
+    happy: {
+        LT: [0, 0], // [x, y]
+        RT: [0, 0], // [x, y]
+        LB: -20,
+        RB: -20,
+        DL: 100,
+        DR: 100,
+        LTBrow: 100,
+        RTBrow: 100,
+        LBBrow: 100,
+        RBBrow: 100,
+        EyeDir: [0, 0] // [EyeDist, EyeAngle]
+    },
+}
+
+let change_state = {
+    emotion: 'none',
+    LT: false, // is changing?
+    RT: false,
+    LB: false,
+    RB: false,
+    DL: false,
+    DR: false,
+    LTBrow: false,
+    RTBrow: false,
+    LBBrow: false,
+    RBBRow: false,
+    EyeDir: false
+}
+
+/* test emotion changes */
+let defaultButton = document.getElementById("defaultButton");
+let happyButton = document.getElementById("happyButton");
+
+defaultButton.onclick = function() {
+    emotion_init('default');
+}
+happyButton.onclick = function() {
+    emotion_init('happy');
+}
+/* */
+
 // let state = {
 //   colors: [randomColor(), randomColor(), randomColor(), randomColor()],
 //   circle: {
@@ -123,6 +180,10 @@ const maxDR = 100;
 setInterval(frame, 1000/20)
 
 function frame() {
+    if (emotion_ischanging()) {
+        emotion_update();
+    }
+
     drawBackground();
     drawFace();
     drawLeftEye();
@@ -130,6 +191,33 @@ function frame() {
     drawLips();
 //   drawPie(state.colors.length)
 //   rotateSquareAndDrawSquare()
+}
+
+function emotion_init(etype) { // initiate changing face emotion
+    change_state['emotion'] = etype;
+    change_state['LT'] = true;
+    change_state['RT'] = true;
+    change_state['LB'] = true;
+    change_state['RB'] = true;
+    change_state['DL'] = true;
+    change_state['DR'] = true;
+    change_state['LTBrow'] = true;
+    change_state['RTBrow'] = true;
+    change_state['LBBrow'] = true;
+    change_state['RBBrow'] = true;
+    change_state['EyeDir'] = true;
+}
+
+function emotion_ischanging() {
+    let ret = change_state['LT'] || change_state['RT'] || change_state['LB'] || change_state['RB'] || change_state['DL'] || change_state['DR'] || change_state['LTBrow'] || change_state['RTBrow'] || change_state['LBBrow'] || change_state['RBBrow'] || change_state['EyeDir'];
+    if (!ret) {
+        change_state['emotion'] = 'none';
+    }
+    return ret;
+}
+
+function emotion_update(){
+    
 }
 
 function drawLeftEye() {
