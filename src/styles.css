@@ -10,8 +10,31 @@ body {
     align-items: center;
 }
 
-.buttonEmotion {
+.emotionTab {
     position: absolute;
-    top: 30px;
-    left: 690px;
+    height: 15%;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+}
+
+.emotionTab::-webkit-scrollbar {
+    display: none;
+}
+
+.emotionButton {
+    border-radius: 30px;
+    background-color: rgba(33, 137, 255, 0.6);
+    color: white;
+    border: none;
+    font-size: 24px;
+    text-transform: uppercase;
+    font-weight: 600;
+    height: 90%;
+    width: 240px;
+    margin-top: 10px;
+    margin-left: 10px;
 }
