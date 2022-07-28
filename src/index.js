@@ -100,12 +100,12 @@ const maxDL = 100;
 const maxDR = 100;
 
 const emotion_preset = {
-    thresh: 0.01,
+    thresh: 0.1, // maybe useless..?
     default: {
         LT: [0, 0], // [x, y]
         RT: [0, 0], // [x, y]
-        LB: 0,
-        RB: 0,
+        LBdeg: 0,
+        RBdeg: 0,
         DL: 0,
         DR: 0,
         LTBrow: 0,
@@ -117,8 +117,8 @@ const emotion_preset = {
     happy: {
         LT: [0, 0], // [x, y]
         RT: [0, 0], // [x, y]
-        LB: -20,
-        RB: -20,
+        LBdeg: -20,
+        RBdeg: -20,
         DL: 100,
         DR: 100,
         LTBrow: 100,
@@ -131,17 +131,42 @@ const emotion_preset = {
 
 let change_state = {
     emotion: 'none',
-    LT: false, // is changing?
-    RT: false,
-    LB: false,
-    RB: false,
-    DL: false,
-    DR: false,
-    LTBrow: false,
-    RTBrow: false,
-    LBBrow: false,
-    RBBRow: false,
-    EyeDir: false
+    changing: false,
+    dt: 0.1,
+    t: 0, // [0, 1]
+    LT: {
+        start: [0, 0]
+    },
+    RT: {
+        start: [0, 0]
+    },
+    LBdeg: {
+        start: 0
+    },
+    RBdeg: {
+        start: 0
+    },
+    DL: {
+        start: 0
+    },
+    DR: {
+        start: 0
+    },
+    LTBrow: {
+        start: 0
+    },
+    RTBrow: {
+        start: 0
+    },
+    LBBrow: {
+        start: 0
+    },
+    RBBrow: {
+        start: 0
+    },
+    EyeDir: {
+        start: [0, 0]
+    },
 }
 
 /* test emotion changes */
@@ -194,30 +219,65 @@ function frame() {
 }
 
 function emotion_init(etype) { // initiate changing face emotion
-    change_state['emotion'] = etype;
-    change_state['LT'] = true;
-    change_state['RT'] = true;
-    change_state['LB'] = true;
-    change_state['RB'] = true;
-    change_state['DL'] = true;
-    change_state['DR'] = true;
-    change_state['LTBrow'] = true;
-    change_state['RTBrow'] = true;
-    change_state['LBBrow'] = true;
-    change_state['RBBrow'] = true;
-    change_state['EyeDir'] = true;
+    if(change_state['emotion'] !== etype) {
+        change_state['emotion'] = etype;
+        change_state['t'] = 0;
+        change_state['changing'] = true;
+
+        change_state['LT']['start'] = [parseFloat(LTx.innerHTML), parseFloat(LTy.innerHTML)];
+        change_state['RT']['start'] = [parseFloat(RTx.innerHTML), parseFloat(RTy.innerHTML)];
+        change_state['LBdeg']['start'] = parseFloat(LBdeg.innerHTML);
+        change_state['RBdeg']['start'] = parseFloat(RBdeg.innerHTML);
+        change_state['DL']['start'] = parseFloat(DL.innerHTML);
+        change_state['DR']['start'] = parseFloat(DR.innerHTML);
+        change_state['LTBrow']['start'] = parseFloat(LTBrow.innerHTML);
+        change_state['RTBrow']['start'] = parseFloat(RTBrow.innerHTML);
+        change_state['LBBrow']['start'] = parseFloat(LBBrow.innerHTML);
+        change_state['RBBrow']['start'] = parseFloat(RBBrow.innerHTML);
+        change_state['EyeDir']['start'] = [parseFloat(EyeDist.innerHTML), parseFloat(EyeAngle.innerHTML)];
+    }
 }
 
 function emotion_ischanging() {
-    let ret = change_state['LT'] || change_state['RT'] || change_state['LB'] || change_state['RB'] || change_state['DL'] || change_state['DR'] || change_state['LTBrow'] || change_state['RTBrow'] || change_state['LBBrow'] || change_state['RBBrow'] || change_state['EyeDir'];
-    if (!ret) {
-        change_state['emotion'] = 'none';
-    }
-    return ret;
+    // let ret = change_state['LT']['changing'] || change_state['RT']['changing'] || change_state['LBdeg']['changing'] || change_state['RBdeg']['changing'] || change_state['DL']['changing'] || change_state['DR']['changing'] || change_state['LTBrow']['changing'] || change_state['RTBrow']['changing'] || change_state['LBBrow']['changing'] || change_state['RBBrow']['changing'] || change_state['EyeDir']['changing'];
+    // if (!ret) {
+    //     change_state['emotion'] = 'none';
+    //     change_state['t'] = 0;
+    // }
+    return change_state['changing'];
 }
 
-function emotion_update(){
+function emotion_update() {
+    let etype = change_state['emotion'];
+    change_state['t'] += change_state['dt'];
+
+    LTx.innerHTML = String(change_state['LT']['start'][0] + (emotion_preset[etype]['LT'][0] - change_state['LT']['start'][0]) * Math.sin(Math.PI * change_state['t'] / 2));
+    LTy.innerHTML = String(change_state['LT']['start'][1] + (emotion_preset[etype]['LT'][1] - change_state['LT']['start'][1]) * Math.sin(Math.PI * change_state['t'] / 2));
+
+    RTx.innerHTML = String(change_state['RT']['start'][0] + (emotion_preset[etype]['RT'][0] - change_state['RT']['start'][0]) * Math.sin(Math.PI * change_state['t'] / 2));
+    RTy.innerHTML = String(change_state['RT']['start'][1] + (emotion_preset[etype]['RT'][1] - change_state['RT']['start'][1]) * Math.sin(Math.PI * change_state['t'] / 2));
+
+    LBdeg.innerHTML = String(change_state['LBdeg']['start'] + (emotion_preset[etype]['LBdeg'] - change_state['LBdeg']['start']) * Math.sin(Math.PI * change_state['t'] / 2));
+    RBdeg.innerHTML = String(change_state['RBdeg']['start'] + (emotion_preset[etype]['RBdeg'] - change_state['RBdeg']['start']) * Math.sin(Math.PI * change_state['t'] / 2));
+
+    DL.innerHTML = String(change_state['DL']['start'] + (emotion_preset[etype]['DL'] - change_state['DL']['start']) * Math.sin(Math.PI * change_state['t'] / 2));
+    DR.innerHTML = String(change_state['DR']['start'] + (emotion_preset[etype]['DR'] - change_state['DR']['start']) * Math.sin(Math.PI * change_state['t'] / 2));
     
+    LTBrow.innerHTML = String(change_state['LTBrow']['start'] + (emotion_preset[etype]['LTBrow'] - change_state['LTBrow']['start']) * Math.sin(Math.PI * change_state['t'] / 2));
+    RTBrow.innerHTML = String(change_state['RTBrow']['start'] + (emotion_preset[etype]['RTBrow'] - change_state['RTBrow']['start']) * Math.sin(Math.PI * change_state['t'] / 2));
+    LBBrow.innerHTML = String(change_state['LBBrow']['start'] + (emotion_preset[etype]['LBBrow'] - change_state['LBBrow']['start']) * Math.sin(Math.PI * change_state['t'] / 2));
+    RBBrow.innerHTML = String(change_state['RBBrow']['start'] + (emotion_preset[etype]['RBBrow'] - change_state['RBBrow']['start']) * Math.sin(Math.PI * change_state['t'] / 2));
+
+    EyeDist.innerHTML = String(change_state['EyeDir']['start'][0] + (emotion_preset[etype]['EyeDir'][0] - change_state['EyeDir']['start'][0]) * Math.sin(Math.PI * change_state['t'] / 2));
+    EyeAngle.innerHTML = String(change_state['EyeDir']['start'][1] + (emotion_preset[etype]['EyeDir'][1] - change_state['EyeDir']['start'][1]) * Math.sin(Math.PI * change_state['t'] / 2));
+
+    console.log(change_state['t'])
+    if (change_state['t'] === 1) {
+        console.log("Animated Done");
+        change_state['emotion'] = 'none';
+        change_state['t'] = 0;
+        change_state['changing'] = false;
+    }
 }
 
 function drawLeftEye() {
