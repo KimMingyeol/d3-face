@@ -2,6 +2,10 @@ html, body {
     height: 100vh;
 }
 
+html::-webkit-scrollbar {
+    display: none;
+}
+
 body {
     background-color: black;
     font-family: sans-serif;
