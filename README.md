@@ -8,10 +8,70 @@ Python3 : python -m http.server 8000
 
 ## Facial Parameterization
 
-#### A facial paramterization method of a smiley newly developed in this repository to represent various facial expressions and their smooth changes in a much simpler way with HTML5 canvas.
+#### A facial parameterization method of a smiley newly developed in this repository to represent various facial expressions and their smooth changes in a much simpler way with HTML5 canvas.
 
+### Upper lip (Bezier Curve)
 
-## Slider test : screen captures
+![Upper_Lip_Explained](https://user-images.githubusercontent.com/68853120/184422528-763fb6ee-f612-40dc-8389-ee1e00a641ac.png)
+
+- LT
+  - Position of the endpoint of left mouth corner
+  - [x offset, y offset]
+
+- RT
+  - Position of the endpoint of right mouth corner
+  - [x offset, y offset]
+
+- LBDeg
+  - Direction of the left mouth corner
+  - angle (degree) in range [-90, 90]
+
+- RBDeg
+  - Direction of the right mouth corner
+  - angle (degree) in range [-90, 90]
+   
+   
+### Lower lip (Bezier Curve)
+
+![Lower_Lip_Explained](https://user-images.githubusercontent.com/68853120/184422492-9a79977c-f84b-40df-91a0-bf84b63f6bab.png)
+
+- DL
+  - The extent to which the left-side of a mouth is opened
+  - value in range [0, 100]
+  - zero-reference: current LBDeg
+
+- DR
+  - The extent to which the right-side of a mouth is opened
+  - value in range [0, 100]
+  - zero-reference: current RBDeg
+
+  
+### Eyes (Ellipse)
+
+![Eyes_Explained](https://user-images.githubusercontent.com/68853120/184422564-dd38d023-efda-4bc8-aa49-d80d99ca9846.png)
+
+- LTBrow
+  - The extent to which the upper part of a left eye is closed
+  - value in range [0, 100]
+
+- LBBrow
+  - The extent to which the lower part of a left eye is closed
+  - value in range [0, 100]
+
+- RTBrow
+  - The extent to which the upper part of a right eye is closed
+  - value in range [0, 100]
+
+- RBBrow
+  - The extent to which the lower part of a right eye is closed
+  - value in range [0, 100]
+
+- EyeDir
+  - Gaze direction
+  - [radius, angle(degree) in range (-180, 180)]
+
+  
+## Parameter values for each facial expressions : 'face_lab' branch screen captures
 
 ### happy
 ![happy](https://user-images.githubusercontent.com/68853120/181467725-b605375d-b763-44c6-aca1-7c4e7ca55edc.png)
