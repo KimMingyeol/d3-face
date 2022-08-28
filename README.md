@@ -70,8 +70,18 @@ Python3 : python -m http.server 8000
   - Gaze direction
   - [radius, angle(degree) in range (-180, 180)]
 
-  
-## Parameter values for each facial expressions : 'face_lab' branch screen captures
+
+
+## Facial Expression Changes
+Try it! :wink: 
+
+In case you can't see more options for facial expressions, remove *src/styles.css line 28-30* to display the bottom scrollbar.
+
+![d3-face_gif](https://user-images.githubusercontent.com/68853120/187095727-264bdbba-dd49-4aa9-8b40-d5cecd24dfcd.gif)
+
+
+
+## Parameter values for each facial expression : 'face_lab' branch screen captures
 
 ### happy
 ![happy](https://user-images.githubusercontent.com/68853120/181467725-b605375d-b763-44c6-aca1-7c4e7ca55edc.png)
